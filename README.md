@@ -56,12 +56,28 @@ df2%>%head(10)
 df2 <- df2 %>% mutate(INTERVIEWDATE2=ymd(df2$IDATE2))
 sapply(df2, class)
 
-#3. OUTCOME VAR from DF WAVE2
+#3.SET VAR
+# OUTCOME VAR from DF WAVE2
 #Set Name
 #name variable Suicide ideation to SI2, suicide attemts to SA2 
 df2=setNames(df2, c("AID","CALCAGE2","ITVDAY2","ITVMONTH2","ITVYEAR2","SI2","SA2","AGE2"))
 df2%>%head(10)
 
+# OUTCOME VAR from DF WAVE3
+df3=da21600.0008 #21600-0008-dATA.rda
+library(dplyr)
+library(tidyverse)
+df3=select(df3,AID,H3TO130,H3TO131)
+df3=setNames(df3, c("AID","SI3","SA3"))
+
+# OUTCOME VAR from DF WAVE3
+df4 = da21600.0022 #21600-0022-dATA.rda
+library(dplyr)
+library(tidyverse)
+df4=select(df4,AID,H4SE1,H4SE2)
+df4=setNames(df4, c("AID","SI4","SA4"))
+
+# OUTCOME VAR MERGE
 #Merge data frame 2,3,4 by AID(unique id number). FOR THIS IMPORT W3 DATA RESULT
 df23=merge(df2, df3, by= "AID")
 df234=merge(df23,df4, by="AID")
